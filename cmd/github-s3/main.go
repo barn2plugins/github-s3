@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	githubs3 "github.com/j178/github-s3"
+	githubs3 "github.com/barn2plugins/github-s3"
 )
 
 func main() {

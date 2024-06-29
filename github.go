@@ -21,13 +21,17 @@ type GitHub struct {
 	authenticityToken string
 }
 
-func New(userSession string, repo string) *GitHub {
+func New(userSession string, repo string, repoId int) *GitHub {
 	g := &GitHub{}
 	if repo == "" {
 		g.repo = "cli/cli"
 		g.repoId = 212613049
 	} else {
 		g.repo = repo
+	}
+
+	if ( repoId != 0 )  {
+		g.repoId = repoId
 	}
 
 	c := resty.New()

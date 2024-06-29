@@ -1,11 +1,11 @@
-module github.com/j178/github-s3/cmd/github-s3-auto
+module github.com/barn2plugins/github-s3/cmd/github-s3-auto
 
 go 1.21
 
 toolchain go1.21.0
 
 require (
-	github.com/j178/github-s3 v0.0.0-20230806042728-2f82dd2f6817
+	github.com/barn2plugins/github-s3 v0.0.0-20230806042728-2f82dd2f6817
 	github.com/j178/kooky v0.0.0-20230609034248-af88dcd40695
 )
 

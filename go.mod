@@ -1,4 +1,4 @@
-module github.com/j178/github-s3
+module github.com/barn2plugins/github-s3
 
 go 1.21
 

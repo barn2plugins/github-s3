@@ -7,6 +7,8 @@ import (
 )
 
 var repo = flag.String("repo", "", "github repo name")
+// repoId is an int flag
+var repoId = flag.Int("repoId", 0, "github repo id")
 
 func Run(sessionGetter func() string) {
 	flag.Parse()
@@ -20,7 +22,7 @@ func Run(sessionGetter func() string) {
 		fmt.Println("GITHUB_SESSION env var is required")
 		os.Exit(1)
 	}
-	gh := New(session, *repo)
+	gh := New(session, *repo, *repoId)
 
 	for _, path := range flag.Args() {
 		res, err := gh.UploadFromPath(path)
