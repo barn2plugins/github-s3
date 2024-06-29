@@ -18,20 +18,20 @@ type GitHub struct {
 	c                 *resty.Client
 	repo              string
 	repoId            int
+	pat               string
 	authenticityToken string
 }
 
-func New(userSession string, repo string, repoId int) *GitHub {
+func New(userSession string, repo string, repoId int, pat string) *GitHub {
 	g := &GitHub{}
+	g.repoId = repoId
+	g.pat = pat
+
 	if repo == "" {
 		g.repo = "cli/cli"
 		g.repoId = 212613049
 	} else {
 		g.repo = repo
-	}
-
-	if ( repoId != 0 )  {
-		g.repoId = repoId
 	}
 
 	c := resty.New()
@@ -63,7 +63,7 @@ func New(userSession string, repo string, repoId int) *GitHub {
 var tokenPattern = regexp.MustCompile(`<file-attachment class="js-upload-markdown-image.*?<input type="hidden" value="([^{"]+?)" data-csrf="true"`)
 
 func (g *GitHub) fetchAuthenticityToken() (string, error) {
-	resp, err := g.c.R().Get(fmt.Sprintf("https://github.com/%s/issues/new", g.repo))
+	resp, err := g.c.R().SetAuthToken(g.pat).Get(fmt.Sprintf("https://github.com/%s/issues/new", g.repo))
 	if err != nil {
 		return "", err
 	}
@@ -82,7 +82,7 @@ func (g *GitHub) getRepoId() (int, error) {
 	var result struct {
 		ID int `json:"id"`
 	}
-	resp, err := g.c.R().SetResult(&result).Get("https://api.github.com/repos/" + g.repo)
+	resp, err := g.c.R().SetAuthToken(g.pat).SetResult(&result).Get("https://api.github.com/repos/" + g.repo)
 	if err != nil {
 		return 0, err
 	}
