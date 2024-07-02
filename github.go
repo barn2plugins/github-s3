@@ -22,9 +22,8 @@ type GitHub struct {
 	authenticityToken string
 }
 
-func New(userSession string, repo string, repoId int, pat string) *GitHub {
+func New(userSession string, repo string, pat string) *GitHub {
 	g := &GitHub{}
-	g.repoId = repoId
 	g.pat = pat
 
 	if repo == "" {
