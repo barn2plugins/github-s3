@@ -14,15 +14,22 @@ Especially useful for hosting image files that can be referenced in markdown fil
 3. Run
     ```shell
     export GITHUB_SESSION=<github-user-session>   
-    github-s3 -repo owner/repo -repoId 12345678 <path-to-file>
+    github-s3 [-repo owner/repo] [-pat ghp_1234567890abcdefghijklmnopqrstuvwyz0] <path-to-file>
     ```
+
+### Parameters
+The command supports two parameters:
+ * `-repo` (optional): This parameter specifies the repository where you want to upload your assets, in the form `<owner>/<respository>` (if you skip this parameter, the `cli/cli` repository will be used)
+ * `-pat` (optional): This parameter provides the Personal Access Token of the user uploading the assets. This parameter is only required if the repository specified with the `-repo` parameter is private. The Personal Access Token must be created with the `repo` and the `write:discussion` permissions
+
+### Auto cookie detection
 
 If you don't want to obtain the cookie manually, you can use [github-s3-auto](./cmd/github-s3-auto) to automatically find the cookie from your web browser session.
 
 ```shell
 go install github.com/barn2plugins/github-s3/cmd/github-s3-auto@latest
 
-github-s3-auto -repo owner/repo -repoId 12345678 <path-to-file>
+github-s3-auto [-repo owner/repo] [-pat ghp_1234567890abcdefghijklmnopqrstuvwyz0] <path-to-file>
 ```
 
 ## Disclaimer
